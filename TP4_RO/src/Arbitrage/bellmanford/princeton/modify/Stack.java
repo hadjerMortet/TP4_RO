@@ -1,13 +1,13 @@
-package az.mm.arbitrage.bellmanford.princeton.modify;
+package arbitrage.bellmanford.princeton.modify;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Stack<Item> implements Iterable<Item> {
-    private int N;                // size of the stack
-    private Node<Item> first;     // top of stack
+    private int N;               
+    private Node<Item> first;    
 
-    // helper linked list class
+ 
     private static class Node<Item> {
         private Item item;
         private Node<Item> next;
@@ -36,10 +36,10 @@ public class Stack<Item> implements Iterable<Item> {
 
     public Item pop() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-        Item item = first.item;        // save item to return
-        first = first.next;            // delete first node
+        Item item = first.item;       
+        first = first.next;           
         N--;
-        return item;                   // return the saved item
+        return item;                  
     }
 
     public Item peek() {
@@ -59,7 +59,7 @@ public class Stack<Item> implements Iterable<Item> {
         return new ListIterator<Item>(first);
     }
 
-    // an iterator, doesn't implement remove() since it's optional
+   
     private class ListIterator<Item> implements Iterator<Item> {
         private Node<Item> current;
 
