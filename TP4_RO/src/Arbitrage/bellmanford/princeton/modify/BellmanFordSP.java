@@ -1,12 +1,12 @@
-package az.mm.arbitrage.bellmanford.princeton.modify;
+package arbitrage.bellmanford.princeton.modify;
 
 public class BellmanFordSP {
-    private double[] distTo;               // distTo[v] = distance  of shortest s->v path
-    private DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
-    private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
-    private Queue<Integer> queue;          // queue of vertices to relax
-    private int cost;                      // number of calls to relax()
-    private Iterable<DirectedEdge> cycle;  // negative cycle (or null if no such cycle)
+    private double[] distTo;               
+    private DirectedEdge[] edgeTo;         
+    private boolean[] onQueue;             
+    private Queue<Integer> queue;        
+    private int cost;                     
+    private Iterable<DirectedEdge> cycle;  
     
     public BellmanFordSP(EdgeWeightedDigraph G, int s) {
         distTo  = new double[G.V()];
@@ -19,14 +19,14 @@ public class BellmanFordSP {
         queue = new Queue<Integer>();
         queue.enqueue(s);
         onQueue[s] = true;
-        while (!queue.isEmpty() && !hasNegativeCycle()) {  //!hasNegativeCycle() bu setre gore ilk negative cycle tapilan kimi dayanir
+        while (!queue.isEmpty() && !hasNegativeCycle()) {  
             int v = queue.dequeue();
             onQueue[v] = false;
             relax(G, v);
         }
     }
 
-    // relax vertex v and put other endpoints on queue if changed
+ 
     private void relax(EdgeWeightedDigraph G, int v) {
         for (DirectedEdge e : G.adj(v)) {
             int w = e.to();
@@ -51,7 +51,7 @@ public class BellmanFordSP {
         return cycle;
     }
 
-    // by finding a cycle in predecessor graph
+   
     private void findNegativeCycle() {
         int V = edgeTo.length;
         EdgeWeightedDigraph spt = new EdgeWeightedDigraph(V);
