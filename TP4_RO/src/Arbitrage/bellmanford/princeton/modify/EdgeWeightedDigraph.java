@@ -1,4 +1,4 @@
-package az.mm.arbitrage.bellmanford.princeton.modify;
+package arbitrage.bellmanford.princeton.modify;
 
 public class EdgeWeightedDigraph {
     private final int V;
