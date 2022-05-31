@@ -1,14 +1,14 @@
-package az.mm.arbitrage.bellmanford.princeton.modify;
+package arbitrage.bellmanford.princeton.modify;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Queue<Item> implements Iterable<Item> {
-    private int N;               // number of elements on queue
-    private Node<Item> first;    // beginning of queue
-    private Node<Item> last;     // end of queue
+    private int N;               
+    private Node<Item> first;    
+    private Node<Item> last;    
 
-    // helper linked list class
+ 
     private static class Node<Item> {
         private Item item;
         private Node<Item> next;
@@ -39,7 +39,7 @@ public class Queue<Item> implements Iterable<Item> {
         Item item = first.item;
         first = first.next;
         N--;
-        if (isEmpty()) last = null;   // to avoid loitering
+        if (isEmpty()) last = null;   
         return item;
     }
 
@@ -48,7 +48,6 @@ public class Queue<Item> implements Iterable<Item> {
         return new ListIterator<Item>(first);  
     }
 
-    // an iterator, doesn't implement remove() since it's optional
     private class ListIterator<Item> implements Iterator<Item> {
         private Node<Item> current;
 
