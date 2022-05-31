@@ -1,15 +1,15 @@
-package az.mm.arbitrage.bellmanford.mine;
+package arbitrage.bellmanford.mine;
 
-import az.mm.arbitrage.cache.DataCache;
-import az.mm.arbitrage.factory.*;
-import az.mm.arbitrage.model.OptimalRate;
+import arbitrage.cache.DataCache;
+import arbitrage.factory.*;
+import arbitrage.model.OptimalRate;
 import java.util.*;
 
 
 public class BellmanFordArbitrage implements Arbitrage {
-    private double[] dist;         // distance array
-    private int[] p;               // predecessor array
-    private OptimalRate adj[][];   // adjency matrix
+    private double[] dist;        
+    private int[] p;               
+    private OptimalRate adj[][];  
     private final int INF = Integer.MAX_VALUE;
     private int vertex, source, number;
     private List<Integer> cycle;
@@ -34,7 +34,7 @@ public class BellmanFordArbitrage implements Arbitrage {
 
     public void callBellmanFord() {
         initializeSingleSource();
-        for (int k = 1; k < vertex; k++)  //iterate (vertex-1)
+        for (int k = 1; k < vertex; k++)  
             for (int u = 0; u < vertex; u++) 
                 for (int v = 0; v < vertex; v++)  
                     relax(u, v);
@@ -57,7 +57,7 @@ public class BellmanFordArbitrage implements Arbitrage {
 
     private void relax(int u, int v) {
         double weight = adj[u][v].getValue();
-        if (u == v || weight == -1) return; //no conversion
+        if (u == v || weight == -1) return; 
         weight = -Math.log(weight);
         if (dist[v] > dist[u] + weight) {
             dist[v] = dist[u] + weight;
@@ -65,23 +65,7 @@ public class BellmanFordArbitrage implements Arbitrage {
         }
     }
     
-    /**
-     * En chox vaxtimi alan qraflarda butun neqativ cycle-lerin tapilmasi oldu,
-     * chunki xeyli menbeden arashdirdim, konkret ele bir menbe chixmadi qarshima
-     * ki, orda qeyd olunsun ki, bu mumkundur. Princeton numunesinde de ancaq bir 
-     * negative cycle gosterilir. Xeyli arashdirmalardan sonra oxudugum meqalelerden
-     * formalashan tesevvure esasen bunu oz mentiqimle improvizasiya elemishem, 
-     * amma yene de tam duzgun men isteyen neticeni vermir.
-     * 0.01, 0.001 ferqe gore > sherti odenir ve onu negative cycle kimi 
-     * qebul edir. Ola biler tam ededlerle duzgun ishlesin, amma double ededlerin
-     * loqarifmini alib muqayise aparanda ola bilsin ki, arada suruhsmeler bash verir
-     * 
-     * http://www.informit.com/articles/article.aspx?p=169575&seqNum=8 - bu linkde  
-     * de Sedgovichin kohne meqalesi var, orda arbitraj qrafinin negative cycle.ye
-     * chevrilmish varianti ile ozumdeki kod ile yaratdigim numuneni yoxladim,
-     * reqemlerle cuzi ferqlenmeler var, ele bu ferqlenmeler de bu sehv neticeni 
-     * vere biler. Loqarifmlemeni bir de arashdirim gerek.. 
-     */
+   
     private boolean hasNegativeCycle() {
         for (int u = 0; u < vertex; u++) 
             for (int v = 0; v < vertex; v++) {
@@ -119,18 +103,7 @@ public class BellmanFordArbitrage implements Arbitrage {
     
     
     private void checkArbitrage(){
-        /**
-         * chox guman hesablamada hardasa xirda sehv var, ola bilsin ona gore chox cuzi ferqle
-         * duzgun olmayan neqativ cycle. da detect olunur, onu arashdirib tapsam tamamdir
-         * 
-         * princeton numunesi:
-            1000.00000 AZN =  453.40000 GBP (DəmirBank)
-             453.40000 GBP = 1002.01400 AZN (Gunay Bank)
-           menim numunem:
-            1000.00000 AZN =  453.41192 GBP (DəmirBank)
-             453.41192 GBP = 1002.04035 AZN (Gunay Bank)
-         * 
-         * */
+       
         
         cycleList.forEach(v -> {
             System.out.printf("\nArbitrage %d: \n", ++number);
