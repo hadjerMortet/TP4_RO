@@ -1,13 +1,13 @@
-package az.mm.arbitrage.bellmanford.princeton.modify;
+package arbitrage.bellmanford.princeton.modify;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Bag<Item> implements Iterable<Item> {
-    private int N;               // number of elements in bag
-    private Node<Item> first;    // beginning of bag
+    private int N;              
+    private Node<Item> first;    
 
-    // helper linked list class
+ 
     private static class Node<Item> {
         private Item item;
         private Node<Item> next;
@@ -38,7 +38,7 @@ public class Bag<Item> implements Iterable<Item> {
         return new ListIterator<Item>(first);  
     }
 
-    // an iterator, doesn't implement remove() since it's optional
+  
     private class ListIterator<Item> implements Iterator<Item> {
         private Node<Item> current;
 
